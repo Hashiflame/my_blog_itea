@@ -19,11 +19,15 @@ from blog.views import home, about, profile
 from django.conf import settings
 from django.conf.urls.static import static
 
+from users.views import register, logout_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('o-nas', about, name='about'),
     path('profile', profile, name='profile'),
+    path('register', register, name='register'),
+    path('logout', logout_view, name='logout')
 ] + static(
     settings.STATIC_URL,
     document_root=settings.STATIC_ROOT

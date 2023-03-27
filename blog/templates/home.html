@@ -1,16 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="content pt-5">
-
-{% for post in posts %}
-<div class="card m-auto" style="width: 18rem;">
-    <img src="{{ post.image.url }}" class="card-img-top" alt="...">
-    <div class="card-body">
-      <p class="card-text"> {{ post.content }}</p>
-    </div>
+<div class="content p-5">
+  {% if massages %}
+  {% for message in messages %}
+  <div class="alert alert-success" role="alert">
+    {{ message }}
   </div>
+  {% endfor %}
+  {% endif %}
+  {% for post in posts %}
+  <div class="card m-auto" style="width: 18rem;">
+      <img src="{{ post.image.url }}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <p class="card-text"> {{ post.content }}</p>
+      </div>
+    </div>
 
-{% endfor %}
+  {% endfor %}
 </div>
 {% endblock %}
