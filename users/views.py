@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 
 from .forms import UserForm
@@ -27,8 +27,15 @@ def register(request):
     }
     return render(request, 'register.html', context)
 
-def login_view(requet):
+def login_view(request):
     form = UserForm()
+
+    if request.method == 'POST':
+        if form.is_valid():
+            user = authenticate(
+                form.cleaned_data['username'],
+                form.cleaned_data['password']
+            )
     context = {
         'form': form
     }
