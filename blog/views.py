@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
+from .forms import PostCreateForm
 from .models import Post
+from django.contrib import messages
 
 
 def home(request):
@@ -11,5 +13,21 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-def profile(request):
-    return render(request, 'profile.html')
+def create_post(request):
+    form = PostCreateForm()
+    if request.method == 'POST':
+        form = PostCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                'Post created successfully!'
+            )
+            return redirect('home')
+    context = {
+        'form': form
+    }
+    return render(request, 'posts/create.html', context)

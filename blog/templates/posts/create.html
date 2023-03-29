@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="content p-5">
-    <h3>Login</h3>
-    {% if messages %}
+    <h3 class="text-primary">New Post</h3>
+    {% if massages %}
     {% for message in messages %}
     <div class="alert alert-success" role="alert">
       {{ message }}
     </div>
     {% endfor %}
     {% endif %}
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
             <label for="">{{ field.label }}</label>

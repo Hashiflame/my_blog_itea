@@ -9,5 +9,12 @@ class Post(models.Model):
         on_delete=models.CASCADE
     )
 
+    creation_date = models.DateTimeField(
+        auto_now_add=True
+    )
+
     def __str__(self):
         return self.content.split()[0]
+
+    class Meta:
+        ordering = ['-creation_date', '-id']
